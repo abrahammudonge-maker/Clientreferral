@@ -182,8 +182,11 @@
     </footer>
 
     <script>
-      // For current testing, default to local HTTPS API unless apiBase query param overrides it.
-      const PROD_API_BASE = "https://localhost:7003";
+      // Handoff values:
+      // - Base host style: https://app.servicesuitecloud.com/WhatsappApi
+      // - Full REST prefix style: https://app.servicesuitecloud.com/WhatsappApi/api
+      // This page appends "/api/..." in requests, so PROD_API_BASE stays on the base host style.
+      const PROD_API_BASE = "https://app.servicesuitecloud.com/WhatsappApi";
       const LOCAL_API_BASE = "https://localhost:7003";
       const API_BASE_STORAGE_KEY = "clientReferralApiBase";
       const REQUEST_TIMEOUT_MS = 20000;
