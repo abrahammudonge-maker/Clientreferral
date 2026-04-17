@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Client Referral</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+      :root{
+        --bg:#f6f8fb;
+        --card:#ffffff;
+        --accent:#0b6bd6;
+        --accent-strong:#084d9b;
+        --muted:#667085;
+        --radius:10px;
+        --gap:14px;
+        --max:720px;
+      }
+      *{box-sizing:border-box}
+      body{
+        font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;
+        background:var(--bg);
+        margin:0;
+        min-height:100vh;
+        color:#0f1724
+      }
+      .container{width:100%;max-width:var(--max);margin:0 auto;padding:0 18px}
+      .card{
+        background:var(--card);
+        border-radius:var(--radius);
+        box-shadow:0 6px 18px rgba(16,24,40,.06);
+        padding:28px;
+        margin:36px auto
+      }
+      h1{margin:0 0 8px;font-size:1.25rem;color:var(--accent-strong)}
+      p.lead{margin:0 0 18px;color:var(--muted);font-size:.95rem}
+      form{display:grid;grid-template-columns:1fr;gap:var(--gap)}
+      @media(min-width:720px){form{grid-template-columns:repeat(2,1fr)}}
+      .full{grid-column:1/-1}
+      label{display:block;font-weight:600;font-size:.9rem;color:#0f1724;margin-bottom:6px}
+      input[type=text],input[type=email],input[type=tel],select{
+        width:100%;
+        padding:10px 12px;
+        border:1px solid #e6e9ef;
+        border-radius:8px;
+        font-size:.95rem;
+        background:#fff
+      }
+      .checkbox-row{display:flex;align-items:flex-start;gap:10px}
+      .checkbox-row label{margin-bottom:0;font-weight:500}
+      .actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+      button{
+        background:var(--accent);
+        color:#fff;
+        padding:10px 14px;
+        border-radius:8px;
+        border:none;
+        font-weight:600;
+        cursor:pointer;
+        transition:background .12s
+      }
+      button:disabled{opacity:.6;cursor:not-allowed}
+      .secondary{
+        background:#eef3ff;
+        color:var(--accent-strong);
+        border:1px solid rgba(11,107,214,.08)
+      }
+      .msg{margin-top:12px;font-weight:600}
+      .api-target{margin:0 0 10px;color:var(--muted);font-size:.86rem}
+      .site-header{
+        background:linear-gradient(90deg,#ffffffcc,#f6fbff);
+        backdrop-filter:blur(4px);
+        border-bottom:1px solid rgba(15,23,36,.04)
+      }
+      .header-inner{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+      .logo{font-weight:700;color:var(--accent-strong);text-decoration:none;font-size:1.1rem}
+      .main-nav a{margin-left:18px;color:#0f1724;text-decoration:none;font-weight:600;opacity:.85}
+      .main-nav{display:flex;align-items:center}
+      @media(max-width:720px){
+        .main-nav{display:none}
+        .card{margin-top:18px}
+      }
+      .main-nav a:hover{opacity:1;color:var(--accent)}
+      .site-main{padding:48px 0;display:flex;justify-content:center}
+      .site-footer{padding:22px 0;border-top:1px solid rgba(15,23,36,.04);margin-top:28px;color:var(--muted);font-size:.9rem}
+      .site-footer .container{display:flex;justify-content:space-between;align-items:center}
+      @media(max-width:720px){.site-footer .container{flex-direction:column;gap:8px;text-align:center}}
+      .success{color:green}
+      .error{color:#c53030}
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="logo" href="#">YourCompany</a>
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="#">Home</a>
+          <a href="#contact">Contact</a>
+          <a href="#about">About</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="site-main">
+      <div class="container">
+        <div class="card" role="region" aria-labelledby="referralTitle">
+          <h1 id="referralTitle">Client Referral Form</h1>
+          <p class="lead">Help us by submitting the client's details. Fields marked * are required.</p>
+          <p class="api-target">API target: <span id="apiTarget"></span></p>
+
+          <form id="clientReferralForm" novalidate>
+            <div>
+              <label for="referrerName">Referrer Name *</label>
+              <input id="referrerName" name="referrerName" type="text" required>
+            </div>
+
+            <div>
+              <label for="referrerPhone">Referrer Phone *</label>
+              <input id="referrerPhone" name="referrerPhone" type="tel" inputmode="tel" placeholder="e.g. +254700000000" required>
+            </div>
+
+            <div>
+              <label for="firstName">First Name *</label>
+              <input id="firstName" name="firstName" type="text" required>
+            </div>
+
+            <div>
+              <label for="otherName">Other Name *</label>
+              <input id="otherName" name="otherName" type="text" required>
+            </div>
+
+            <div>
+              <label for="email">Email *</label>
+              <input id="email" name="email" type="email" placeholder="name@example.com" required>
+            </div>
+
+            <div>
+              <label for="phone">Client Phone *</label>
+              <input id="phone" name="phone" type="tel" inputmode="tel" placeholder="e.g. +254700000000" required>
+            </div>
+
+            <div>
+              <label for="phoneModel">Phone Model *</label>
+              <select id="phoneModel" name="phoneModel" required>
+                <option value="">Loading...</option>
+              </select>
+            </div>
+
+            <div class="full checkbox-row">
+              <input id="consent" name="consent" type="checkbox" required>
+              <label for="consent">I give consent *</label>
+            </div>
+
+            <div>
+              <label for="county">County *</label>
+              <select id="county" name="county" required>
+                <option value="">Loading...</option>
+              </select>
+            </div>
+
+            <div class="full actions">
+              <button id="submitBtn" type="submit">Submit Referral</button>
+              <button id="clearBtn" type="button" class="secondary">Clear</button>
+              <div id="message" class="msg" aria-live="polite"></div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer" id="contact">
+      <div class="container">
+        <div>Copyright <span id="year"></span> YourCompany. All rights reserved.</div>
+        <div>
+          <a href="#">Privacy</a>
+          <span style="margin:0 8px;color:rgba(15,23,36,.12)">&#8226;</span>
+          <a href="#">Terms</a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // For current testing, default to local HTTPS API unless apiBase query param overrides it.
+      const PROD_API_BASE = "https://localhost:7003";
+      const LOCAL_API_BASE = "https://localhost:7003";
+      const API_BASE_STORAGE_KEY = "clientReferralApiBase";
+      const REQUEST_TIMEOUT_MS = 20000;
+
+      function normalizeBaseUrl(url) {
+        return String(url || "").trim().replace(/\/$/, "");
+      }
+
+      function resolveApiBase() {
+        const queryApiBase = new URLSearchParams(window.location.search).get("apiBase");
+        if (queryApiBase) {
+          const normalized = normalizeBaseUrl(queryApiBase);
+          try {
+            localStorage.setItem(API_BASE_STORAGE_KEY, normalized);
+          } catch {
+          }
+          return normalized;
+        }
+
+        try {
+          const saved = normalizeBaseUrl(localStorage.getItem(API_BASE_STORAGE_KEY));
+          if (saved) return saved;
+        } catch {
+        }
+
+        const host = window.location.hostname;
+        const isLocal = host === "localhost" || host === "127.0.0.1";
+
+        // Standalone defaults:
+        // - local website uses local API
+        // - deployed website uses production API
+        return isLocal ? LOCAL_API_BASE : PROD_API_BASE;
+      }
+
+      const API_BASE = resolveApiBase();
+
+      const form = document.getElementById("clientReferralForm");
+      const msgEl = document.getElementById("message");
+      const submitBtn = document.getElementById("submitBtn");
+      const clearBtn = document.getElementById("clearBtn");
+      const apiTarget = document.getElementById("apiTarget");
+
+      function apiUrl(path) {
+        return API_BASE + path;
+      }
+
+      function setMessage(text, type) {
+        msgEl.textContent = text;
+        msgEl.className = "msg " + (type || "");
+      }
+
+      function normalizePhone(phone) {
+        return String(phone || "").trim().replace(/\s+/g, "");
+      }
+
+      function withTimeoutFetch(url, options) {
+        const controller = new AbortController();
+        const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+        return fetch(url, { ...options, signal: controller.signal })
+          .finally(() => clearTimeout(timer));
+      }
+
+      async function parseApiError(res) {
+        const contentType = res.headers.get("content-type") || "";
+        try {
+          if (contentType.includes("application/json")) {
+            const json = await res.json();
+            return json.message || json.error || JSON.stringify(json);
+          }
+          return await res.text();
+        } catch {
+          return "Request failed";
+        }
+      }
+
+      function setSelectOptions(selectEl, placeholder, list) {
+        const options = Array.isArray(list)
+          ? list.map(item => `<option value="${item.id}">${item.name}</option>`).join("")
+          : "";
+        selectEl.innerHTML = `<option value="">${placeholder}</option>` + options;
+      }
+
+      async function loadPhoneModels() {
+        const sel = document.getElementById("phoneModel");
+        try {
+          const res = await withTimeoutFetch(apiUrl("/api/Leads/GetPhoneModels"), {
+            method: "GET",
+            headers: { "Accept": "application/json" }
+          });
+
+          if (!res.ok) {
+            throw new Error(await parseApiError(res) || "Failed to load phone models");
+          }
+
+          const list = await res.json();
+          setSelectOptions(sel, "Select phone model", list);
+        } catch (err) {
+          console.error("Phone models error:", err);
+          setSelectOptions(sel, "Select phone model", [
+            { id: "1", name: "Model A (sample)" },
+            { id: "2", name: "Model B (sample)" }
+          ]);
+          setMessage("Phone models unavailable from API.", "error");
+        }
+      }
+
+      async function loadCounties() {
+        const sel = document.getElementById("county");
+        try {
+          const res = await withTimeoutFetch(apiUrl("/api/Leads/GetCounties"), {
+            method: "GET",
+            headers: { "Accept": "application/json" }
+          });
+
+          if (!res.ok) {
+            throw new Error(await parseApiError(res) || "Failed to load counties");
+          }
+
+          const list = await res.json();
+          setSelectOptions(sel, "Select county", list);
+        } catch (err) {
+          console.error("Counties error:", err);
+          setSelectOptions(sel, "Select county", [
+            { id: "47", name: "Nairobi (sample)" },
+            { id: "1", name: "Mombasa (sample)" }
+          ]);
+          setMessage("Counties unavailable from API.", "error");
+        }
+      }
+
+      clearBtn.addEventListener("click", () => {
+        form.reset();
+        setMessage("", "");
+      });
+
+      window.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("year").textContent = new Date().getFullYear();
+        apiTarget.textContent = API_BASE;
+        loadPhoneModels();
+        loadCounties();
+      });
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        setMessage("", "");
+
+        if (!form.checkValidity()) {
+          setMessage("Please fill out all required fields correctly.", "error");
+          return;
+        }
+
+        const referrerPhone = normalizePhone(form.referrerPhone.value);
+
+        const payload = {
+          referrerPhone: referrerPhone,
+          referrerName: form.referrerName.value.trim(),
+          firstName: form.firstName.value.trim(),
+          otherName: form.otherName.value.trim(),
+          email: form.email.value.trim(),
+          phone: normalizePhone(form.phone.value),
+          phoneModel: Number(form.phoneModel.value || 0),
+          county: Number(form.county.value || 0),
+          consent: form.consent.checked
+        };
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Submitting...";
+
+        try {
+          const res = await withTimeoutFetch(apiUrl("/api/Leads/SubmitClientReferralProspect"), {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json"
+            },
+            body: JSON.stringify(payload)
+          });
+
+          if (!res.ok) {
+            throw new Error((await parseApiError(res)) || "Submission failed");
+          }
+
+          setMessage("Referral submitted successfully.", "success");
+          form.reset();
+        } catch (err) {
+          console.error("Submit error:", err);
+
+          if (err && (err.name === "TypeError" || err.name === "AbortError")) {
+            setMessage("Request blocked by CORS or network timeout. Backend must allow this website origin.", "error");
+          } else {
+            setMessage(err.message || "Network or API error occurred.", "error");
+          }
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Submit Referral";
+        }
+      });
+    </script>
+  </body>
+</html>
